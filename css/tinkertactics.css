@@ -22,6 +22,13 @@
 .piece{
     height:80%;
     width:80%;
-    background-color:#c00;
     border-radius: 50%;
+}
+
+.red{
+    background-color:#c11;
+}
+
+.blue{
+    background-color:#48f;
 }
