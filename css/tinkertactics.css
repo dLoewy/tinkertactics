@@ -32,3 +32,7 @@
 .blue{
     background-color:#48f;
 }
+
+.selected{
+    box-shadow: 0 0 0 2pt white;
+}
