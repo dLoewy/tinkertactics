@@ -42,7 +42,8 @@ class TTView {
 
     initialize(){
         let matrix = this.board.matrix;
-        let boardDiv = document.createElement('board');
+        let boardDiv = document.createElement('div');
+        boardDiv.setAttribute('id', 'board');
         for (let i = 0; i < matrix.length; i++){
             let rowDiv = document.createElement('div');
             rowDiv.classList.add('row');
@@ -110,6 +111,10 @@ class TTGame {
             clickedCell.piece.selected = false;
             this.selectedCell.piece = null;
             this.selectedCell = null;
+        }
+        else if (clickedCell === this.selectedCell){
+            this.selectedCell = null;
+            clickedCell.piece.selected = false;
         }
         this.view.update();
     }
