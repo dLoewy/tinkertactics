@@ -97,31 +97,38 @@ class TTGame {
     constructor(){
         this.myBoard = new Board(3, 4);
         this.view = new TTView(document.getElementById('container'), this.myBoard, this);
-        this.selectedCell = null;
+        this.lastSelectedCell = null;
     }
 
     handleCellClick(r, c){
         let clickedCell = this.myBoard.getCell(r, c);
         // If there's no currently selected cell and clicked cell contains a piece
-        if (! this.selectedCell && clickedCell.piece){
+        if (! this.lastSelectedCell && clickedCell.piece){
+            //Select the cell
             clickedCell.piece.selected = true;
-            this.selectedCell = clickedCell;
+            this.lastSelectedCell = clickedCell;
             this.view.update();
         }
         // If there IS a selected cell, and an empty cell has been clicked
-        else if (this.selectedCell && ! clickedCell.piece){
-            // Move and unselect the piece
-            clickedCell.piece = this.selectedCell.piece;
+        else if (this.lastSelectedCell && ! clickedCell.piece){
+            // Move and deselect the piece
+            clickedCell.piece = this.lastSelectedCell.piece;
             clickedCell.piece.selected = false;
-            this.selectedCell.piece = null;
-            this.selectedCell = null;
+            this.lastSelectedCell.piece = null;
+            this.lastSelectedCell = null;
+            this.processMove(clickedCell);
             this.view.update();
         }
-        else if (clickedCell === this.selectedCell){
-            this.selectedCell = null;
+        //Allow deselecting a selected piece
+        else if (clickedCell === this.lastSelectedCell){
+            this.lastSelectedCell = null;
             clickedCell.piece.selected = false;
             this.view.update();
         }
+    }
+
+    processMove(cell){
+        cell.piece.value--;
     }
 
     newGame(){
